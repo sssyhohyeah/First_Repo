@@ -2,6 +2,8 @@
     数据库读操作演示（查找select）
 '''
 
+import threading
+
 import pymysql
 
 db = pymysql.connect(host="localhost",
