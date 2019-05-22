@@ -29,3 +29,6 @@ print()
 print(c.fetchone())
 
 db.close()
+
+print()
+print()
