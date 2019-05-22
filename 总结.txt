@@ -1,0 +1,76 @@
+斯于航  2019/5/21
+
+1. 复习：
+（1）总结数据库分类、常见数据库（关系型数据库和非关系型数据库，开源数据库和非开源数据库等）
+
+（2）复习关系型数据库：数据元素-->记录-->数据表-->数据库，及其基本定义：记录、字段、数据表等
+
+（3）MySQL的特点：开源、跨平台性好、提供多种程序语言接口、存储结构优良、运行效率高等
+
+（4）SQL语句：结构化查询语言（Structured Query Language）
+    -- 注意每条SQL语句都必须以；结尾
+    -- SQL语句不区分大小写
+    -- 不同的数据库的SQL语句有细微差别
+
+（5）数据库操作：
+    -- 创建数据库：create database 数据库名 charset = utf8
+    -- 查看已有库：show databases
+    -- 查看创建库的语句：show create database 数据库名
+    -- 查看当前所在库：select database()
+    -- 切换数据库： use 新数据库名
+    -- 删除数据库：drop database 数据库名
+
+（6）数据表：
+    -- 支持的数据类型：
+        ** 数字类型（整型int及衍生tinyint smallint mediumint bigint、浮点型float double、比特类型）
+        ** 字符串类型（字符类型char 变长字符类型varchar 文本类型text 二进制文本类型blob 枚举类型enum 集合类型set）
+        ** 时间类型（日期类型date 时间类型time）
+    -- 数据表的操作：
+        ** 创建数据表 create table 表名 (字段1 数据类型，字段2 数据类型...)
+        ** 查看数据表 show tables
+        ** 查看表结构 desc 表名
+        ** 查看创建表的语句 show create table 表名
+        ** 删除表 drop table 表名
+    -- 数据的操作：
+        ** 插入 insert into 表名 (字段1，字段2...) values ()
+        ** 删除 delete from 表名 where ...(条件)
+        ** 修改 update 表名 set 字段名=... where...(条件)
+        ** 查询 select (字段1，字段2...) from 表名 where ... (条件)
+    -- 表字段的操作：
+        ** 增加表字段 alter table 表名 add 字段名 数据类型 (first, after...)
+        ** 修改表字段 alter table 表名 change 旧字段名 新字段名
+        ** 修改表字段数据类型 alter table 表名 modify 字段名 数据类型
+        ** 表重命名 alter table 表名 rename 新表名
+        ** 删除表字段  alter table 表名 drop 字段名
+
+2. 高级查询
+（1）模糊查询 like
+（2）排序 order by ... asc/desc
+（3）分页 limit (number)
+（4）联合查询 select ... union select ...
+（5）多表查询 select 表1.字段名1,表1.字段名2,表2.字段名1,表2.字段名2 from 表1，表2 where 表1.字段名=表2.字段名
+
+3. 数据备份
+（1）数据备份： mysqldump -uroot -p 源库名 > 地址/***.sql
+（2）数据恢复： mysql -uroot -p 目标库名 < 地址/***.sql
+
+4. pymysql使用：
+（1）建立数据库连接  import pymysql     db = pymysql.connect(host=,port=,user=,password=,database=,charset=)
+（2）创建游标 c = db.cursor()
+（3）执行 c.execute(sql)
+（4）上传到数据库 c.commit()
+（5）关闭游标 c.close()
+（6）关闭数据库连接对象 db.close()
+（7）其他游标方法：c.fetchone()  c.fetchmany(n)  c.fetchall(); 其他数据库连接对象方法 db.rollback()
+
+5. pymysql处理二进制文件存储和获取
+（1）存储路径（字符串）
+    --优点：占用空间少，执行效率高
+    --缺点：数据易丢失
+    --适用于网站开发等场景
+（2）存储文件（二进制字节串）
+    --优点：数据不易丢失，库在数据就在
+    --缺点：占用空间大，文件读写效率低
+    --适用于存储单个需要长期保存的文件
+
+在昨天学习了数据库相关的基本概念，数据库、数据表和数据的常见操作的SQL语句的基础上，学习了高级查询，利用like进行模糊查询，order by进行排序，limit选择查询的记录数，以及联合查询和多表查询。数据备份及数据恢复功能可以帮助增强数据的存储安全性，在pycharm中利用pymysql可以将程序和数据库结合，以实现更丰富的功能。
